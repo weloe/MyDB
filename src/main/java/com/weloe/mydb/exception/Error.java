@@ -7,6 +7,7 @@ public class Error {
     public static FileNotExistsException FileNotExistsException = new FileNotExistsException();
 
 
+    public static Exception CacheFullException = new RuntimeException("缓存已满");
 }
 class BadTranFileException extends RuntimeException{
     public BadTranFileException() {
