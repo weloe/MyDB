@@ -8,6 +8,7 @@ public class Error {
 
 
     public static Exception CacheFullException = new RuntimeException("缓存已满");
+    public static Exception MemTooSmallException = new RuntimeException("缓存设置过小");
 }
 class BadTranFileException extends RuntimeException{
     public BadTranFileException() {
