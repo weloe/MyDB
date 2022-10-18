@@ -14,11 +14,26 @@ public class ByteParser {
     }
 
     /**
-     * long转byte
+     * long转byte[]
      * @param val
      * @return
      */
     public static byte[] long2Byte(long val) {
         return ByteBuffer.allocate(Long.SIZE / Byte.SIZE).putLong(val).array();
+    }
+
+
+    /**
+     * short转byte[]
+     * @param val
+     * @return
+     */
+    public static byte[] short2Byte(short val) {
+        return ByteBuffer.allocate(Short.SIZE / Byte.SIZE).putShort(val).array();
+    }
+
+    public static short parseShort(byte[] buffer) {
+        ByteBuffer byteBuffer = ByteBuffer.wrap(buffer, 0, 2);
+        return byteBuffer.getShort();
     }
 }
