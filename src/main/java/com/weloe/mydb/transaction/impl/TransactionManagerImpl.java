@@ -49,7 +49,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public boolean isActive(long tranId) throws Exception {
+    public boolean isActive(long tranId) {
         if (tranId == SUPER_TRANID) {
             return false;
         }
@@ -57,7 +57,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public boolean isCommited(long tranId) throws Exception {
+    public boolean isCommited(long tranId) {
         if (tranId == SUPER_TRANID) {
             return false;
         }
@@ -65,7 +65,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public boolean isAborted(long tranId) throws Exception {
+    public boolean isAborted(long tranId) {
         if (tranId == SUPER_TRANID) {
             return false;
         }
@@ -260,7 +260,7 @@ public class TransactionManagerImpl implements TransactionManager {
      * @param status
      * @return bool
      */
-    private boolean checkTranId(long tranId, byte status) throws Exception {
+    private boolean checkTranId(long tranId, byte status) {
         long offset = getTranIdPosition(tranId);
         ByteBuffer buffer = ByteBuffer.wrap(new byte[TRANID_FIELD_SIZE]);
 
@@ -268,7 +268,7 @@ public class TransactionManagerImpl implements TransactionManager {
             fc.position(offset);
             fc.read(buffer);
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.systemStop(e);
         }
 
         return buffer.array()[0] == status;

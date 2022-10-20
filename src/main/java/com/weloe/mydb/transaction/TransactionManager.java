@@ -21,9 +21,9 @@ public interface TransactionManager {
     void abort(long tranId) throws Exception;
 
 
-    boolean isActive(long tranId) throws Exception;
-    boolean isCommited(long tranId) throws Exception;
-    boolean isAborted(long tranId) throws Exception;
+    boolean isActive(long tranId);
+    boolean isCommited(long tranId);
+    boolean isAborted(long tranId);
 
     /**
      * 关闭事务
