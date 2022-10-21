@@ -47,5 +47,35 @@ public interface DataItem {
     SubArray getRaw();
 
 
+    /**
+     * 从Page的offset处解析dataitem
+     * key: 页号和页内偏移组成的一个 8 字节无符号整数，页号和偏移各占 4 字节。
+     * @param pg
+     * @param offset
+     * @param dataManager
+     * @return
+     */
+    static DataItem parseDataItem(Page pg, short offset, DataManagerImpl dataManager) {
+        byte[] raw = pg.getData();
+        short size = ByteParser.parseShort(Arrays.copyOfRange(raw, offset + DataItemImpl.OF_SIZE, offset + DataItemImpl.OF_DATA));
+        short length = (short) (size + DataItemImpl.OF_DATA);
+        long uid = Types.addressToUid(pg.getPageNumber(),offset);
+        return new DataItemImpl(new SubArray(raw,offset,offset+length),new byte[length],pg,uid,dataManager);
+    }
+
+    /**
+     * 把DataItem设为无效
+     * @param raw
+     */
+    static void setDataItemRawInvalid(byte[] raw) {
+        raw[DataItemImpl.OF_VALID] = (byte)1;
+    }
+
+
+    static byte[] wrapDataItemRaw(byte[] data) {
+        byte[] valid = new byte[1];
+        byte[] size = ByteParser.short2Byte((short) data.length);
+        return Bytes.concat(valid,size,data);
+    }
 
 }
