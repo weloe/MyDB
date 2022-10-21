@@ -53,7 +53,9 @@ public class PageCommon {
         return PageCache.PAGE_SIZE - (int)getFSO(page.getData());
     }
 
-    //将raw插入page的offset位置，并将page的offset设置为较大的offset
+    /**
+     * 将raw插入page的offset位置，并将page的offset设置为较大的offset
+     */
     public static void recoverInsert(Page page,byte[] raw,short offset){
         page.setDirty(true);
         System.arraycopy(raw,0,page.getData(),offset,raw.length);
@@ -64,7 +66,9 @@ public class PageCommon {
         }
     }
 
-    //将raw插入page的offset位置，不更新update
+    /**
+     * 将raw插入page的offset位置，不更新update
+     */
     public static void recoverUpdate(Page page,byte[] raw,short offset){
         page.setDirty(true);
         System.arraycopy(raw,0,page.getData(),offset,raw.length);
