@@ -44,7 +44,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public void abort(long tranId) throws Exception {
+    public void abort(long tranId) {
         updateTranId(tranId, FIELD_TRAN_ABORTED);
     }
 
@@ -208,7 +208,7 @@ public class TransactionManagerImpl implements TransactionManager {
      * @param tranId    事务唯一id
      * @param status 事务状态
      */
-    private void updateTranId(long tranId, byte status) throws Exception {
+    private void updateTranId(long tranId, byte status) {
         if(tranId == 0) {
             return;
         }
@@ -222,13 +222,13 @@ public class TransactionManagerImpl implements TransactionManager {
             fc.position(offset);
             fc.write(buffer);
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.systemStop(e);
         }
 
         try {
             fc.force(false);
         } catch (IOException e) {
-            ExceptionHandler.handle(e);
+            ExceptionHandler.systemStop(e);
         }
 
     }

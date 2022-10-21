@@ -18,7 +18,7 @@ public interface PageCache {
      * @return
      * @throws Exception
      */
-    int newPage(byte[] initData) throws Exception;
+    int newPage(byte[] initData);
 
     /**
      * 获取数据页

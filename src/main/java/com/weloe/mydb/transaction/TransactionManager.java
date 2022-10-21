@@ -18,7 +18,7 @@ public interface TransactionManager {
      * 撤销事务
      * @param tranId
      */
-    void abort(long tranId) throws Exception;
+    void abort(long tranId);
 
 
     boolean isActive(long tranId);

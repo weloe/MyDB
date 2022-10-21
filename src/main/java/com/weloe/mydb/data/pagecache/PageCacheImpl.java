@@ -103,7 +103,7 @@ public class PageCacheImpl extends AbstractCache<Page> implements PageCache{
 
 
     @Override
-    public int newPage(byte[] initData) throws Exception {
+    public int newPage(byte[] initData) {
         int pageNo = pageNumbers.incrementAndGet();
         PageImpl page = new PageImpl(pageNo, initData, null);
         flush(page);
