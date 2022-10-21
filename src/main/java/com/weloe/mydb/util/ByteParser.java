@@ -36,4 +36,13 @@ public class ByteParser {
         ByteBuffer byteBuffer = ByteBuffer.wrap(buffer, 0, 2);
         return byteBuffer.getShort();
     }
+
+    public static byte[] int2Byte(int value) {
+        return ByteBuffer.allocate(Integer.SIZE / Byte.SIZE).putInt(value).array();
+    }
+
+    public static int parseInt(byte[] array) {
+        ByteBuffer buffer = ByteBuffer.wrap(array, 0, 4);
+        return buffer.getInt();
+    }
 }
