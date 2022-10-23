@@ -36,6 +36,8 @@ public interface DataItem {
 
     void unlock();
 
+    void rLock();
+
     void rUnLock();
 
     Page page();

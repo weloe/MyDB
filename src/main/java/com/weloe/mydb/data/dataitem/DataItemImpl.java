@@ -9,8 +9,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * 1 : 0/1         2         DataSize
- * [ValidFlag] [DataSize] [Data]
+ *
+ *                  1 : 0/1         2         DataSize
+ * SubArray.raw:  [ValidFlag] [DataSize] [Data]
  */
 public class DataItemImpl implements DataItem {
 
@@ -55,11 +56,13 @@ public class DataItemImpl implements DataItem {
     public void before() {
         wLock.lock();
         pg.setDirty(true);
+        // 拷贝保留源数据到oldRaw
         System.arraycopy(raw.raw, raw.start, oldRaw, 0, oldRaw.length);
     }
 
     @Override
     public void unBefore() {
+        // 把源数据拷贝回raw
         System.arraycopy(oldRaw, 0, raw.raw, raw.start, oldRaw.length);
     }
 
@@ -85,8 +88,13 @@ public class DataItemImpl implements DataItem {
     }
 
     @Override
-    public void rUnLock() {
+    public void rLock() {
         rLock.lock();
+    }
+
+    @Override
+    public void rUnLock() {
+        rLock.unlock();
     }
 
     @Override
